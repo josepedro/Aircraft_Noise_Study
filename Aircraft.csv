@@ -1,0 +1,2 @@
+ACFT_ID;Description;Engine Type;Number Of Engines;Weight Class;Owner Category;Max Gross Takeoff Weight (lb);Max Gross Landing Weight (lb);Max Landing Distance (ft);Max Sea Level Static Thrust (lb);Noise Chapter;NPD_ID;Power Parameter;Approach Spectral Class ID;Departure Spectral Class ID;Lateral Directivity Identifier
+737;Boeing 737/JT8D-9;Jet;2;Large;Commercial;109000;98000;3900;14500;1;2JT8DW;CNT (lb);201;101;Wing
