@@ -1,5 +1,4 @@
-Script to Processing Noise Data from ANP Database (Aircraft Noise and
-Performance)  
+Script to Processing Noise Data from ANP Database (Aircraft Noise and Performance)  
 ======
 This script is a processor of datas from ANP Database, using NPD data (Noise
 Power Distance), to extract values of EPNL, LAmax, SEL and calculate values of
