@@ -1,7 +1,7 @@
 clear 'all'; close 'all';
 
 % Open datas from NPD_data.csv
-npd_data = open('NPD_data.csv');
+npd_data = open('boeing_737_data/NPD_data.csv');
 height_in_ft = [200, 400, 630, 1000, 2000, 4000, 6300, 10000, 16000, 25000];
 
 %-----------------------------------------------------------------------------
