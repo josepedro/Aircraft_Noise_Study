@@ -450,253 +450,129 @@ title('Grafico do LAmax (Nivel de pressao maxima instantanea ponderada) [dBA] pe
 xlabel('Angulo de Depressao [Graus]')
 ylabel('Nível de Pressao Sonora [dBA]');
 
-% Calculo do Lmax,seg considerando que o aviao esta variando so a distancia projetada no solo 'l' e
-% e com angulo de depressao = 0
-beta = [-pi:0.001:pi];
-beta = beta;
-delta_beta(1:length(beta)) = 0;
-for angle = 1:length(beta)
-    l = cos(beta(angle))*height_in_ft(end);
-    gama = 0;
-    if(l >= 0 && l <= 3000)
-        gama = 1.089*[1-exp(-0.00274*l)];
-    elseif(l > 3000)
+% Graph in foot, to analyze the efect of lateral distance ------------------------------------
+l = [1:1:3937];
+% Make in 0 degree
+beta = 0;
+delta_0(1:length(l)) = 0;
+gama = 0;
+delta = 0;
+for pass = 1:length(l)
+    % Calculate gama
+    if(l(pass) >= 0 && l(pass) <= (914/0.3048))
+        gama = 1.089*(1-exp(-0.00274*l(pass)));
+    elseif(l(pass)>(914/0.3048))
         gama = 1;
     end
-    if(beta(angle) <= 0 && beta(angle) <= 0.8727)
-        delta_beta(angle) = gama*(1.137 - 0.0229*beta(angle) + ...
-        9.72*exp(-0.142*beta(angle)));
-    elseif(beta(angle) > 0.8727 && beta(angle) <= pi/2)
-        delta_beta(angle) = 0;
-    end
+    % Calculate delta with degree = 0
+    delta = 1.137 - 0.0229*beta  + 9.72*exp(-0.142*beta);
+    delta_0(pass) = gama*delta;
 end
-Lmax_seg_2 = dB_to_plot_6(end) - delta_beta;
-beta_o = (beta*180)/pi;
-begin = 1;
-ending = 1*length(beta);
+
+% Graph in foot --------------------------------------
+% Make in 2 degree
+beta = (2*pi)/180;
+delta_2(1:length(l)) = 0;
+gama = 0;
+delta = 0;
+for pass = 1:length(l)
+    % Calculate gama
+    if(l(pass) >= 0 && l(pass) <= (914/0.3048))
+        gama = 1.089*(1-exp(-0.00274*l(pass)));
+    elseif(l(pass)>(914/0.3048))
+        gama = 1;
+    end
+    % Calculate delta with degree = 2
+    delta = 1.137 - 0.0229*beta  + 9.72*exp(-0.142*beta);
+    delta_2(pass) = gama*delta;
+end
+
+% Graph in foot --------------------------------------
+% Make in 5 degree
+beta = (5*pi)/180;
+delta_5(1:length(l)) = 0;
+gama = 0;
+delta = 0;
+for pass = 1:length(l)
+    % Calculate gama
+    if(l(pass) >= 0 && l(pass) <= (914/0.3048))
+        gama = 1.089*(1-exp(-0.00274*l(pass)));
+    elseif(l(pass)>(914/0.3048))
+        gama = 1;
+    end
+    % Calculate delta with degree = 5
+    delta = 1.137 - 0.0229*beta  + 9.72*exp(-0.142*beta);
+    delta_5(pass) = gama*delta;
+end
+
+% Graph in foot --------------------------------------
+% Make in 10 degree
+beta = (10*pi)/180;
+delta_10(1:length(l)) = 0;
+gama = 0;
+delta = 0;
+for pass = 1:length(l)
+    % Calculate gama
+    if(l(pass) >= 0 && l(pass) <= (914/0.3048))
+        gama = 1.089*(1-exp(-0.00274*l(pass)));
+    elseif(l(pass)>(914/0.3048))
+        gama = 1;
+    end
+    % Calculate delta with degree = 10
+    delta = 1.137 - 0.0229*beta  + 9.72*exp(-0.142*beta);
+    delta_10(pass) = gama*delta;
+end
+
+% Graph in foot --------------------------------------
+% Make in 20 degree
+beta = (20*pi)/180;
+delta_20(1:length(l)) = 0;
+gama = 0;
+delta = 0;
+for pass = 1:length(l)
+    % Calculate gama
+    if(l(pass) >= 0 && l(pass) <= (914/0.3048))
+        gama = 1.089*(1-exp(-0.00274*l(pass)));
+    elseif(l(pass)>(914/0.3048))
+        gama = 1;
+    end
+    % Calculate delta with degree = 20
+    delta = 1.137 - 0.0229*beta  + 9.72*exp(-0.142*beta);
+    delta_20(pass) = gama*delta;
+end
+
+% Graph in foot --------------------------------------
+% Make in 40 degree
+beta = (40*pi)/180;
+delta_40(1:length(l)) = 0;
+gama = 0;
+delta = 0;
+for pass = 1:length(l)
+    % Calculate gama
+    if(l(pass) >= 0 && l(pass) <= (914/0.3048))
+        gama = 1.089*(1-exp(-0.00274*l(pass)));
+    elseif(l(pass)>(914/0.3048))
+        gama = 1;
+    end
+    % Calculate delta with degree = 40
+    delta = 1.137 - 0.0229*beta  + 9.72*exp(-0.142*beta);
+    delta_40(pass) = gama*delta;
+end
 
 figure;
-plot(beta_o(begin:ending), Lmax_seg_2(begin:ending), 'r', beta_o(begin:ending), compare_Lmax_seg(begin:ending), 'b');
+plot(l, delta_0, 'b', ...
+l,delta_2, 'r', ...
+l,delta_5, 'y', ...
+l,delta_10, 'm', ...
+l,delta_20, 'c', ...
+l,delta_40, 'k' ...
+);
 grid on;
 grid minor;
-legend('Lmax de segmento de vôo', 'Lmax padrão');
-title('Grafico do LAmax (Nivel de pressao maxima instantanea ponderada) [dBA] pelo Angulo de Elevação');
-xlabel('Angulo de Elevação [Graus]')
-ylabel('Nível de Pressao Sonora [dBA]');
-
-l = [0:1:3937]; % em pes
-delta_l(2:length(l)) = 0;
-for pass = 2:length(l)
-%    l = cos(beta(angle))*height_in_ft(end);
-    gama = 0;
-    if(l(pass) >= 0 && l(pass) <= 3000)
-        gama = 1.089*[1-exp(-0.00274*l(pass))];
-    elseif(l(pass) > 3000)
-        gama = 1;
-    end
-%    beta = acos(l(pass)/height_in_ft(end))
-    beta = 0;
-    if(beta <= 0 && beta <= 0.8727)
-        delta_l(pass) = gama*(1.137 - 0.0229*beta + ...
-        9.72*exp(-0.142*beta));
-    elseif(beta > 0.8727 && beta <= pi/2)
-        delta_l(pass) = 0;
-    end
-    % Interpolate dB reference
-    slot_db_reference = 0;
-    common_tx = 9999;
-    distance = l(pass);
-    for pass_2 = 1:length(height_in_ft_interpolated)
-        if((log(distance) - height_in_ft_interpolated(pass_2)).^2 < common_tx)
-            slot_db_reference = pass_2;
-        end
-    end
-    delta_l(pass) = dB_to_plot_6_interpolated(slot_db_reference) - delta_l(pass);
-end
-Lmax_seg_30  = delta_l;
-
-l = [0:1:3937]; % em pes
-delta_l(2:length(l)) = 0;
-for pass = 2:length(l)
-%    l = cos(beta(angle))*height_in_ft(end);
-    gama = 0;
-    if(l(pass) >= 0 && l(pass) <= 3000)
-        gama = 1.089*[1-exp(-0.00274*l(pass))];
-    elseif(l(pass) > 3000)
-        gama = 1;
-    end
-%    beta = acos(l(pass)/height_in_ft(end))
-    beta = 0;
-    if(beta <= 0 && beta <= 0.8727)
-        delta_l(pass) = gama*(1.137 - 0.0229*beta + ...
-        9.72*exp(-0.142*beta));
-    elseif(beta > 0.8727 && beta <= pi/2)
-        delta_l(pass) = 0;
-    end
-    % Interpolate dB reference
-    slot_db_reference = 0;
-    common_tx = 9999;
-    distance = l(pass)/cos((2/180)*pi);
-    for pass_2 = 1:length(height_in_ft_interpolated)
-        if((log(distance) - height_in_ft_interpolated(pass_2)).^2 < common_tx)
-            slot_db_reference = pass_2;
-        end
-    end
-    delta_l(pass) = dB_to_plot_6_interpolated(slot_db_reference) - delta_l(pass);
-end
-Lmax_seg_31  = delta_l;
-
-l = [0:1:3937]; % em pes
-delta_l(2:length(l)) = 0;
-for pass = 2:length(l)
-%    l = cos(beta(angle))*height_in_ft(end);
-    gama = 0;
-    if(l(pass) >= 0 && l(pass) <= 3000)
-        gama = 1.089*[1-exp(-0.00274*l(pass))];
-    elseif(l(pass) > 3000)
-        gama = 1;
-    end
-%    beta = acos(l(pass)/height_in_ft(end))
-    beta = 0;
-    if(beta <= 0 && beta <= 0.8727)
-        delta_l(pass) = gama*(1.137 - 0.0229*beta + ...
-        9.72*exp(-0.142*beta));
-    elseif(beta > 0.8727 && beta <= pi/2)
-        delta_l(pass) = 0;
-    end
-    % Interpolate dB reference
-    slot_db_reference = 0;
-    common_tx = 9999;
-    distance = l(pass)/cos((5/180)*pi);
-    for pass_2 = 1:length(height_in_ft_interpolated)
-        if((log(distance) - height_in_ft_interpolated(pass_2)).^2 < common_tx)
-            slot_db_reference = pass_2;
-        end
-    end
-    delta_l(pass) = dB_to_plot_6_interpolated(slot_db_reference) - delta_l(pass);
-end
-Lmax_seg_32  = delta_l;
-
-l = [0:1:3937]; % em pes
-delta_l(2:length(l)) = 0;
-for pass = 2:length(l)
-%    l = cos(beta(angle))*height_in_ft(end);
-    gama = 0;
-    if(l(pass) >= 0 && l(pass) <= 3000)
-        gama = 1.089*[1-exp(-0.00274*l(pass))];
-    elseif(l(pass) > 3000)
-        gama = 1;
-    end
-%    beta = acos(l(pass)/height_in_ft(end))
-    beta = 0;
-    if(beta <= 0 && beta <= 0.8727)
-        delta_l(pass) = gama*(1.137 - 0.0229*beta + ...
-        9.72*exp(-0.142*beta));
-    elseif(beta > 0.8727 && beta <= pi/2)
-        delta_l(pass) = 0;
-    end
-    % Interpolate dB reference
-    slot_db_reference = 0;
-    common_tx = 9999;
-    distance = l(pass)/cos((10/180)*pi);
-    for pass_2 = 1:length(height_in_ft_interpolated)
-        if((log(distance) - height_in_ft_interpolated(pass_2)).^2 < common_tx)
-            slot_db_reference = pass_2;
-        end
-    end
-    delta_l(pass) = dB_to_plot_6_interpolated(slot_db_reference) - delta_l(pass);
-end
-Lmax_seg_33  = delta_l;
-
-l = [0:1:3937]; % em pes
-delta_l(2:length(l)) = 0;
-for pass = 2:length(l)
-%    l = cos(beta(angle))*height_in_ft(end);
-    gama = 0;
-    if(l(pass) >= 0 && l(pass) <= 3000)
-        gama = 1.089*[1-exp(-0.00274*l(pass))];
-    elseif(l(pass) > 3000)
-        gama = 1;
-    end
-%    beta = acos(l(pass)/height_in_ft(end))
-    beta = 0;
-    if(beta <= 0 && beta <= 0.8727)
-        delta_l(pass) = gama*(1.137 - 0.0229*beta + ...
-        9.72*exp(-0.142*beta));
-    elseif(beta > 0.8727 && beta <= pi/2)
-        delta_l(pass) = 0;
-    end
-    % Interpolate dB reference
-    slot_db_reference = 0;
-    common_tx = 9999;
-    distance = l(pass)/cos((20/180)*pi);
-    for pass_2 = 1:length(height_in_ft_interpolated)
-        if((log(distance) - height_in_ft_interpolated(pass_2)).^2 < common_tx)
-            slot_db_reference = pass_2;
-        end
-    end
-    delta_l(pass) = dB_to_plot_6_interpolated(slot_db_reference) - delta_l(pass);
-end
-Lmax_seg_34  = delta_l;
-
-l = [0:1:3937]; % em pes
-delta_l(2:length(l)) = 0;
-for pass = 2:length(l)
-%    l = cos(beta(angle))*height_in_ft(end);
-    gama = 0;
-    if(l(pass) >= 0 && l(pass) <= 3000)
-        gama = 1.089*[1-exp(-0.00274*l(pass))];
-    elseif(l(pass) > 3000)
-        gama = 1;
-    end
-%    beta = acos(l(pass)/height_in_ft(end))
-    beta = 0;
-    if(beta <= 0 && beta <= 0.8727)
-        delta_l(pass) = gama*(1.137 - 0.0229*beta + ...
-        9.72*exp(-0.142*beta));
-    elseif(beta > 0.8727 && beta <= pi/2)
-        delta_l(pass) = 0;
-    end
-    % Interpolate dB reference
-    slot_db_reference = 0;
-    common_tx = 9999;
-    distance = l(pass)/cos((40/180)*pi);
-    for pass_2 = 1:length(height_in_ft_interpolated)
-        if((log(distance) - height_in_ft_interpolated(pass_2)).^2 < common_tx)
-            slot_db_reference = pass_2;
-        end
-    end
-    delta_l(pass) = dB_to_plot_6_interpolated(slot_db_reference) - delta_l(pass);
-end
-Lmax_seg_35  = delta_l;
-
-figure;
-plot(l, Lmax_seg_30, 'b',... 
-l, Lmax_seg_31, 'r',...
-l,Lmax_seg_32, 'y',...
-l, Lmax_seg_33, 'm',...
-l, Lmax_seg_34, 'c',...
-l, Lmax_seg_35, 'k');
-
-grid on;
-grid minor;
-
-
-% Calculo com a variacao dos 2, tanto angulo de depressao (fi) como angulo de elevacao (beta)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+legend('0 grau', '2 graus', '5 graus', '10 graus', '20 graus', '40 graus');
+title('Gráfico de variação da atenuação lateral pelo ângulo de elevação e com distância.');
+xlabel('Distância lateral [ft]')
+ylabel('Ajustamento acima da superfície [dB]');
 
 
 %-----------------------------------------------------------------------------
@@ -897,7 +773,4 @@ legend('potencia de 3000 [lb]', ...
 title('Grafico do SEL (nivel de exposicao sonora) [dba] por log(Altura [ft]) Interpolado');
 xlabel('log(Altura [ft])');
 ylabel('Pressao sonora [dba]');
-
-
-
 
