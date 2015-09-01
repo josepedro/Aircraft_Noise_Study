@@ -154,8 +154,8 @@ legend('potencia de 3000 [lb]', ...
 'potencia de 14000 [lb]');
 
 title('Grafico do EPNL (Effective Perceived Noise Level) [EPNdB] por Altura [ft]');
-xlabel('Altura (ft)')
-ylabel('Pressao Sonora [EPNdB]');
+xlabel('Altura [ft]')
+ylabel('Nivel de Pressao Sonora [EPNdB]');
 
 % Plot Graphs ---------------------------------
 figure;
@@ -725,9 +725,9 @@ legend('potencia de 3000 [lb]', ...
 'potencia de 12000 [lb]', ...
 'potencia de 14000 [lb]');
 
-title('Grafico do SEL (nivel de exposicao sonora) [dba] por Altura [ft]');
+title('Grafico do SEL (nivel de exposicao sonora) [dBA] por Altura [ft]');
 xlabel('Altura [ft]');
-ylabel('Pressao sonora [dba]');
+ylabel('Nível de Pressao Sonora [dBA]');
 
 % Plot graph --------------------------------
 figure;
@@ -747,9 +747,9 @@ legend('potencia de 3000 [lb]', ...
 'potencia de 12000 [lb]', ...
 'potencia de 14000 [lb]');
 
-title('Grafico do SEL (nivel de exposicao sonora) [dba] por log(Altura [ft])');
+title('Grafico do SEL (nivel de exposicao sonora) [dBA] por log(Altura [ft])');
 xlabel('log(Altura [ft])');
-ylabel('Pressao sonora [dba]');
+ylabel('Nivel de Pressao Sonora [dBA]');
 
 
 % Plot graph --------------------------------
@@ -770,7 +770,7 @@ legend('potencia de 3000 [lb]', ...
 'potencia de 12000 [lb]', ...
 'potencia de 14000 [lb]');
 
-title('Grafico do SEL (nivel de exposicao sonora) [dba] por log(Altura [ft]) Interpolado');
+title('Grafico do SEL (nivel de exposicao sonora) [dBA] por log(Altura [ft]) Interpolado');
 xlabel('log(Altura [ft])');
-ylabel('Pressao sonora [dba]');
+ylabel('Nivel de Pressao Sonora [dBA]');
 
