@@ -412,7 +412,7 @@ ylabel('Nivel de Pressao Sonora [dBA]');
 % /\(beta, l) -> Atenuação Lateral: o ruido numa direcao obliqua possui uma atenucao, em baixo da nave ela eh maior
 % 
 % deltaI(fi) = 10*log[(a*cos^2fi + sin^2fi)^b/(c*sin^2(2*fi)+cos^2(2fi))]
-% 'fi' eh o angulo de depressao e, como nesse caso eh o boeing 737 os motores estao nas asas logo:
+% 'fi' eh o angulo de pranchamento e, como nesse caso eh o boeing 737 os motores estao nas asas logo:
 % a = 0.00384; b = 0.0621; c = 0.8786
 %
 % /\(beta, l) = Gama(l) * /\(beta)
@@ -446,8 +446,8 @@ plot(fi_o(begin:ending), Lmax_seg(begin:ending), 'r', fi_o(begin:ending), compar
 grid on;
 grid minor;
 legend('Lmax de segmento de vôo', 'Lmax padrão');
-title('Grafico do LAmax (Nivel de pressao maxima instantanea ponderada) [dBA] pelo Angulo de Depressao');
-xlabel('Angulo de Depressao [Graus]')
+title('Grafico do LAmax (Nivel de pressao maxima instantanea ponderada) [dBA] pelo Angulo de Pranchamento');
+xlabel('Angulo de Pranchamento [Graus]')
 ylabel('Nível de Pressao Sonora [dBA]');
 
 % Graph in foot, to analyze the efect of lateral distance ------------------------------------
